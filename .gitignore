@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+dist
+.env
+.env*.local
+payload.db
+payload.db-*
+media
+cms/.env
+cms/.tmp
+cms/dist
+cms/build
+cms/.cache
+*.log
+coverage

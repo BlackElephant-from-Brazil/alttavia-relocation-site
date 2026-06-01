@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #0e2a47;
+  background: #fbfaf7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(251, 250, 247, 0.94), rgba(247, 244, 238, 0.98)),
+    linear-gradient(125deg, rgba(216, 198, 173, 0.22), rgba(255, 255, 255, 0.18) 44%, rgba(23, 42, 70, 0.08)),
+    linear-gradient(240deg, rgba(255, 255, 255, 0.68), rgba(216, 198, 173, 0.14) 58%, rgba(251, 250, 247, 0.9));
+}
+
+::selection {
+  background: #d0a12b;
+  color: #0e2a47;
+}
+
+.hero-marquee-track {
+  animation: hero-marquee 28s linear infinite;
+}
+
+.challenge-float-a {
+  animation: challenge-float-a 6.5s ease-in-out infinite;
+}
+
+.challenge-float-b {
+  animation: challenge-float-b 7.2s ease-in-out infinite;
+}
+
+.challenge-image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0.75rem;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.35rem;
+  box-shadow: inset 0 0 0 1px rgba(14, 42, 71, 0.06);
+}
+
+.challenge-floating-tag {
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.challenge-tag-dot {
+  animation: challenge-tag-pulse 2.4s ease-out infinite;
+}
+
+.challenge-question-row {
+  position: relative;
+}
+
+.challenge-question-row::before {
+  content: '';
+  position: absolute;
+  top: 1.1rem;
+  bottom: 1.1rem;
+  left: -0.25rem;
+  width: 2px;
+  background: #d0a12b;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.challenge-question-row:hover::before {
+  opacity: 0.55;
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes challenge-float-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes challenge-float-b {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes challenge-tag-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(208, 161, 43, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(208, 161, 43, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(208, 161, 43, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee-track,
+  .challenge-float-a,
+  .challenge-float-b,
+  .challenge-tag-dot {
+    animation: none;
+  }
+}
