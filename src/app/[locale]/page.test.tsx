@@ -30,7 +30,12 @@ describe('HomePage conversion sections', () => {
     const markup = readFileSync(join(process.cwd(), 'src/app/[locale]/page.tsx'), 'utf8')
 
     expect(markup).toContain("import { CountUpNumber }")
+    expect(markup).toContain("import { ScrollReveal }")
     expect(markup).toContain('<CountUpNumber')
+    expect(markup).toContain('<ScrollReveal')
+    expect(markup).toContain('variant="fade-up"')
+    expect(markup).toContain('variant="slide-left"')
+    expect(markup).toContain('variant="scale-soft"')
     expect(markup).toContain('primaryHref="#get-started"')
     expect(markup).toContain('primaryIcon={<Compass')
     expect(markup).toContain('id="get-started"')
@@ -39,5 +44,15 @@ describe('HomePage conversion sections', () => {
     expect(markup).toContain('<GetStartedForm')
     expect(markup).not.toContain('learn more about us')
     expect(markup).not.toContain('see all articles')
+  })
+
+  it('standardizes requested home section vertical spacing to 20px', () => {
+    const markup = readFileSync(join(process.cwd(), 'src/app/[locale]/page.tsx'), 'utf8')
+
+    expect(markup).toContain('className="px-6 py-5"')
+    expect(markup).not.toContain('<ScrollReveal className="px-6 py-14"')
+    expect(markup).not.toContain('<ScrollReveal className="px-6 py-16"')
+    expect(markup).not.toContain('<ScrollReveal className="px-6 py-20"')
+    expect(markup).not.toContain('<ScrollReveal className="px-6 py-8"')
   })
 })

@@ -6,6 +6,7 @@ import { BlogCard } from '@/components/blog/BlogCard'
 import { CountUpNumber } from '@/components/sections/CountUpNumber'
 import { GetStartedForm } from '@/components/sections/GetStartedForm'
 import { Hero } from '@/components/sections/Hero'
+import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -122,7 +123,7 @@ export default async function HomePage({ params }: Props) {
         imageSrc={homeHeroContent.imageSrc}
       />
 
-      <section className="px-6 py-14">
+      <ScrollReveal className="px-6 py-5" variant="fade-up">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center font-serif text-4xl leading-tight text-ink md:text-5xl">As Featured In</h2>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
@@ -146,9 +147,9 @@ export default async function HomePage({ params }: Props) {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="px-6 py-20">
+      <ScrollReveal className="px-6 py-5" variant="slide-left">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <Eyebrow className="justify-center">THE CHALLENGE</Eyebrow>
@@ -214,9 +215,9 @@ export default async function HomePage({ params }: Props) {
             costing thousands in additional fees.
           </p>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="px-6 py-16">
+      <ScrollReveal className="px-6 py-5" variant="scale-soft">
         <div className="mx-auto max-w-6xl border-y border-primary/10 py-12">
           <div className="text-center">
             <Eyebrow className="justify-center">our numbers</Eyebrow>
@@ -236,9 +237,9 @@ export default async function HomePage({ params }: Props) {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="px-6 py-20">
+      <ScrollReveal className="px-6 py-5" variant="slide-right">
         <div className="mx-auto max-w-6xl">
           <SectionHeader
             eyebrow="our services"
@@ -263,9 +264,9 @@ export default async function HomePage({ params }: Props) {
             </div>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="px-6 py-8">
+      <ScrollReveal className="px-6 py-5" variant="scale-soft">
         <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-6 overflow-hidden rounded-3xl border border-white/15 bg-[linear-gradient(135deg,#0E2A47_0%,#123B63_48%,#D0A12B_135%)] p-8 text-center shadow-glass md:p-10">
           <div
             className="absolute inset-0 opacity-20"
@@ -286,9 +287,9 @@ export default async function HomePage({ params }: Props) {
             </ButtonLink>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="px-6 py-20">
+      <ScrollReveal className="px-6 py-5" variant="fade-up">
         <div className="mx-auto max-w-6xl">
           <SectionHeader eyebrow="why us" title="Why Clients Choose Alttavia Relocation" />
           <div className="grid gap-4 md:grid-cols-3">
@@ -314,9 +315,9 @@ export default async function HomePage({ params }: Props) {
             <ButtonLink href={`/${locale}/why-us`}>Learn more about us</ButtonLink>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="px-6 py-20">
+      <ScrollReveal className="px-6 py-5" variant="slide-left">
         <div className="mx-auto max-w-6xl">
           <SectionHeader
             eyebrow="blog"
@@ -340,7 +341,7 @@ export default async function HomePage({ params }: Props) {
             </div>
           )}
         </div>
-      </section>
+      </ScrollReveal>
 
       <section id="get-started" className="relative overflow-hidden bg-primary px-6 py-20 text-white">
         <div

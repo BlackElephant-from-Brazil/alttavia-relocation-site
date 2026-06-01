@@ -79,7 +79,7 @@ export function Hero({
         <div>
           {eyebrow ? <Eyebrow className="mb-5">{eyebrow}</Eyebrow> : null}
           <h1
-            className={`max-w-4xl font-serif text-[2.55rem] leading-[1.02] sm:text-[3.05rem] md:text-7xl md:leading-[0.96] ${
+            className={`max-w-4xl font-serif text-[2.25rem] leading-[1.04] sm:text-[3.05rem] md:text-7xl md:leading-[0.96] ${
               hasImage ? 'text-white' : 'text-ink'
             }`}
           >
@@ -108,14 +108,22 @@ export function Hero({
             </div>
           ) : null}
           <div className="mt-5 w-full max-w-[calc(100vw-3rem)] overflow-hidden border-y border-white/16 py-3 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)] md:mt-8 md:max-w-3xl md:py-4">
-            <div className="hero-marquee-track flex w-max items-center gap-5 whitespace-nowrap text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white md:gap-6 md:text-xs md:tracking-[0.2em]">
-              {[...heroMarqueeItems, ...heroMarqueeItems].map((item, index) => (
-                <span key={`${item}-${index}`} className="inline-flex items-center gap-5 md:gap-6">
-                  <span>{item}</span>
-                  <span className="text-secondary" aria-hidden="true">
-                    •
-                  </span>
-                </span>
+            <div className="hero-marquee-track flex w-max min-w-full will-change-transform">
+              {[0, 1].map((loop) => (
+                <div
+                  key={loop}
+                  className="hero-marquee-group flex shrink-0 items-center gap-5 pr-5 whitespace-nowrap text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white md:gap-6 md:pr-6 md:text-xs md:tracking-[0.2em]"
+                  aria-hidden={loop === 1 ? 'true' : undefined}
+                >
+                  {heroMarqueeItems.map((item) => (
+                    <span key={`${item}-${loop}`} className="inline-flex items-center gap-5 md:gap-6">
+                      <span>{item}</span>
+                      <span className="text-secondary" aria-hidden="true">
+                        •
+                      </span>
+                    </span>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
