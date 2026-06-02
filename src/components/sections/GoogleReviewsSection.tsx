@@ -53,7 +53,7 @@ export function GoogleReviewsSection({ reviews }: { reviews: GoogleReview[] }) {
           <div>
             <Eyebrow className="justify-center">Client Reviews</Eyebrow>
             <h2 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">
-              Latest 5-star Google reviews
+              Latest Google reviews
             </h2>
           </div>
           <a
