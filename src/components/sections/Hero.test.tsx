@@ -40,6 +40,7 @@ describe('Hero', () => {
         visualItems: ['Portugal', 'Spain'],
         visualTitle: 'Private advisory',
         imageSrc: '/patricia.webp',
+        aside: React.createElement('form', { 'data-testid': 'hero-form' }, 'Hero form'),
       } as React.ComponentProps<typeof Hero>),
     )
 
@@ -47,7 +48,12 @@ describe('Hero', () => {
     expect(markup).toContain('/patricia.webp')
     expect(markup).toContain('min-h-screen')
     expect(markup).toContain('items-end')
-    expect(markup).toContain('md:items-center')
+    expect(markup).toContain('md:items-end')
+    expect(markup).toContain('md:pb-14')
+    expect(markup).toContain('lg:grid-cols-[minmax(0,3fr)_minmax(20rem,2fr)]')
+    expect(markup).toContain('hero-copy-column')
+    expect(markup).toContain('hero-form-column')
+    expect(markup).toContain('data-testid="hero-form"')
     expect(markup).toContain('text-[2.25rem]')
     expect(markup).toContain('text-secondary')
     expect(markup).toContain('bg-primary text-white')

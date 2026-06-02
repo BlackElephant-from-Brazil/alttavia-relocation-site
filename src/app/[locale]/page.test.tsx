@@ -30,8 +30,15 @@ describe('HomePage conversion sections', () => {
     const markup = readFileSync(join(process.cwd(), 'src/app/[locale]/page.tsx'), 'utf8')
 
     expect(markup).toContain("import { CountUpNumber }")
+    expect(markup).toContain("import { getGoogleReviews }")
+    expect(markup).toContain("import { GoogleReviewsSection }")
     expect(markup).toContain("import { ScrollReveal }")
     expect(markup).toContain('<CountUpNumber')
+    expect(markup).toContain('const googleReviews = await getGoogleReviews().catch(() => [])')
+    expect(markup).toContain('<GoogleReviewsSection reviews={googleReviews} />')
+    expect(markup).toContain(
+      'aside={<GetStartedForm dict={dict} idPrefix="hero-contact" variant="glass" className="!mt-0 !max-w-none" />}',
+    )
     expect(markup).toContain('<ScrollReveal')
     expect(markup).toContain('variant="fade-up"')
     expect(markup).toContain('variant="slide-left"')
@@ -44,6 +51,18 @@ describe('HomePage conversion sections', () => {
     expect(markup).toContain('<GetStartedForm')
     expect(markup).not.toContain('learn more about us')
     expect(markup).not.toContain('see all articles')
+  })
+
+  it('places Google reviews between challenge and our numbers', () => {
+    const markup = readFileSync(join(process.cwd(), 'src/app/[locale]/page.tsx'), 'utf8')
+
+    const challengeIndex = markup.indexOf('THE CHALLENGE')
+    const reviewsIndex = markup.indexOf('<GoogleReviewsSection reviews={googleReviews} />')
+    const numbersIndex = markup.indexOf('our numbers')
+
+    expect(challengeIndex).toBeGreaterThan(-1)
+    expect(reviewsIndex).toBeGreaterThan(challengeIndex)
+    expect(numbersIndex).toBeGreaterThan(reviewsIndex)
   })
 
   it('standardizes requested home section vertical spacing to 20px', () => {

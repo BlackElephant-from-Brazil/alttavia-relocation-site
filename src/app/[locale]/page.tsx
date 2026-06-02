@@ -4,7 +4,9 @@ import { BadgeCheck, Compass, Scale, ShieldCheck } from 'lucide-react'
 
 import { BlogCard } from '@/components/blog/BlogCard'
 import { CountUpNumber } from '@/components/sections/CountUpNumber'
+import { FeaturedIn } from '@/components/sections/FeaturedIn'
 import { GetStartedForm } from '@/components/sections/GetStartedForm'
+import { GoogleReviewsSection } from '@/components/sections/GoogleReviewsSection'
 import { Hero } from '@/components/sections/Hero'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { ButtonLink } from '@/components/ui/ButtonLink'
@@ -14,6 +16,7 @@ import { homeHeroContent } from '@/content/homeHero'
 import { getDictionary } from '@/i18n/dictionaries'
 import { normalizeLocale } from '@/i18n/routing'
 import { createMetadata } from '@/lib/metadata'
+import { getGoogleReviews } from '@/lib/googleReviews'
 import { getPageByKey, getPosts } from '@/lib/strapi'
 
 export const dynamic = 'force-dynamic'
@@ -21,23 +24,6 @@ export const dynamic = 'force-dynamic'
 type Props = {
   params: Promise<{ locale: string }>
 }
-
-const featuredLinks = [
-  {
-    href: 'https://sicnoticias.pt/pais/2025-04-04-video-advogados-protestam-contra-dificuldades-no-acesso-aos-processos-da-aima-5cfae453',
-    src: '/sicnot.svg',
-    alt: 'SIC Notícias',
-    width: 250,
-    height: 34,
-  },
-  {
-    href: 'https://www.publico.pt/2025/06/23/publico-brasil/noticia/advogados-imigracao-unem-entraves-aima-irn-seguranca-social-2137561#',
-    src: '/publico-jornal.webp',
-    alt: 'Publico',
-    width: 132,
-    height: 132,
-  },
-] as const
 
 const challengeQuestions = [
   'Which visa pathway fits your situation?',
@@ -108,6 +94,7 @@ export default async function HomePage({ params }: Props) {
   const locale = normalizeLocale((await params).locale)
   const dict = getDictionary(locale)
   const posts = await getPosts(locale, 3).catch(() => [])
+  const googleReviews = await getGoogleReviews().catch(() => [])
 
   return (
     <main>
@@ -121,33 +108,10 @@ export default async function HomePage({ params }: Props) {
         visualItems={dict.common.visualItems}
         visualTitle={dict.common.visualTitle}
         imageSrc={homeHeroContent.imageSrc}
+        aside={<GetStartedForm dict={dict} idPrefix="hero-contact" variant="glass" className="!mt-0 !max-w-none" />}
       />
 
-      <ScrollReveal className="px-6 py-5" variant="fade-up">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center font-serif text-4xl leading-tight text-ink md:text-5xl">As Featured In</h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {featuredLinks.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex min-h-36 items-center justify-center rounded-3xl border border-white/70 bg-white/70 p-8 shadow-soft backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white"
-                aria-label={`Read Alttavia coverage in ${item.alt}`}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  width={item.width}
-                  height={item.height}
-                  className="max-h-28 w-auto object-contain transition group-hover:scale-[1.03]"
-                />
-              </a>
-            ))}
-          </div>
-        </div>
-      </ScrollReveal>
+      <FeaturedIn />
 
       <ScrollReveal className="px-6 py-5" variant="slide-left">
         <div className="mx-auto max-w-6xl">
@@ -216,6 +180,8 @@ export default async function HomePage({ params }: Props) {
           </p>
         </div>
       </ScrollReveal>
+
+      <GoogleReviewsSection reviews={googleReviews} />
 
       <ScrollReveal className="px-6 py-5" variant="scale-soft">
         <div className="mx-auto max-w-6xl border-y border-primary/10 py-12">

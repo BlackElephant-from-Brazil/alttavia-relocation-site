@@ -31,9 +31,15 @@ Copie `.env.example` para `.env.local` se necessário:
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
 STRAPI_API_TOKEN=
+GOOGLE_PLACES_API_KEY=
+GOOGLE_PLACE_ID=
+GOOGLE_PLACE_QUERY=Alttavia Relocation
+GOOGLE_REVIEWS_SOURCE_URL=https://share.google/OBdFa5ruoNI45MEys
 ```
 
 Use `STRAPI_API_TOKEN` apenas no server-side. Não use `NEXT_PUBLIC_` para tokens privados.
+Use `GOOGLE_PLACES_API_KEY` no server-side para buscar avaliações do Google. Quando possível, configure também
+`GOOGLE_PLACE_ID`; se ficar vazio, o site tenta resolver o local por `GOOGLE_PLACE_QUERY`.
 
 ## Variáveis do Strapi
 

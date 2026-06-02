@@ -21,6 +21,7 @@ export function Hero({
   visualItems,
   visualTitle,
   imageSrc,
+  aside,
 }: {
   eyebrow?: string
   title: string
@@ -33,8 +34,10 @@ export function Hero({
   visualItems: readonly string[]
   visualTitle: string
   imageSrc?: string
+  aside?: ReactNode
 }) {
   const hasImage = Boolean(imageSrc)
+  const hasAside = Boolean(aside)
   const heroBackground = imageSrc
     ? `linear-gradient(90deg, rgba(24, 33, 43, 0.86), rgba(24, 33, 43, 0.68) 42%, rgba(24, 33, 43, 0.22) 72%), url(${imageSrc})`
     : undefined
@@ -49,7 +52,7 @@ export function Hero({
     <section
       className={`relative isolate flex min-h-screen overflow-hidden px-6 ${
         hasImage
-          ? 'items-end pb-10 pt-28 md:items-center md:pb-24 md:pt-36'
+          ? 'items-end pb-10 pt-28 md:items-end md:pb-14 md:pt-36'
           : 'items-center pb-20 pt-36 md:pb-28 md:pt-44'
       }`}
     >
@@ -74,9 +77,13 @@ export function Hero({
         />
       </div>
       <div
-        className={`relative z-10 mx-auto grid w-full max-w-6xl items-end gap-12 ${hasImage ? '' : 'lg:grid-cols-[1.15fr_0.85fr]'}`}
+        className={`relative z-10 mx-auto grid w-full items-end gap-12 ${
+          hasAside
+            ? 'max-w-7xl lg:grid-cols-[minmax(0,3fr)_minmax(20rem,2fr)] lg:gap-10 xl:gap-14'
+            : `max-w-6xl ${hasImage ? '' : 'lg:grid-cols-[1.15fr_0.85fr]'}`
+        }`}
       >
-        <div>
+        <div className={`hero-copy-column ${hasAside ? 'lg:max-w-[min(100%,52rem)]' : ''}`}>
           {eyebrow ? <Eyebrow className="mb-5">{eyebrow}</Eyebrow> : null}
           <h1
             className={`max-w-4xl font-serif text-[2.25rem] leading-[1.04] sm:text-[3.05rem] md:text-7xl md:leading-[0.96] ${
@@ -128,7 +135,8 @@ export function Hero({
             </div>
           </div>
         </div>
-        {!hasImage ? (
+        {hasAside ? <div className="hero-form-column hidden lg:block">{aside}</div> : null}
+        {!hasImage && !hasAside ? (
           <div className="rounded-[2rem] border border-white/70 bg-white/50 p-4 shadow-glass backdrop-blur-2xl">
             <div
               className="aspect-[4/5] rounded-[1.45rem] bg-[linear-gradient(145deg,rgba(24,33,43,0.86),rgba(23,42,70,0.68)),url('/relocation-placeholder.svg')] bg-cover bg-center p-8 text-white"

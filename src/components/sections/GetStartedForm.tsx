@@ -5,8 +5,25 @@ import { useState } from 'react'
 
 import type { Dictionary } from '@/i18n/dictionaries'
 
-export function GetStartedForm({ dict }: { dict: Dictionary }) {
+export function GetStartedForm({
+  dict,
+  idPrefix = 'get-started',
+  variant = 'solid',
+  className = '',
+}: {
+  dict: Dictionary
+  idPrefix?: string
+  variant?: 'solid' | 'glass'
+  className?: string
+}) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const nameId = `${idPrefix}-name`
+  const emailId = `${idPrefix}-email`
+  const messageId = `${idPrefix}-message`
+  const shellClassName =
+    variant === 'glass'
+      ? 'border border-white/25 bg-white/12 shadow-glass backdrop-blur-2xl'
+      : 'border border-white/10 bg-[linear-gradient(145deg,#1A436A,#153858)] shadow-[0_22px_70px_rgba(0,0,0,0.18)]'
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -27,20 +44,20 @@ export function GetStartedForm({ dict }: { dict: Dictionary }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="get-started-form-shell mt-10 max-w-2xl rounded-2xl border border-white/10 bg-[linear-gradient(145deg,#1A436A,#153858)] p-5 text-white shadow-[0_22px_70px_rgba(0,0,0,0.18)] sm:p-6"
+      className={`get-started-form-shell mt-10 max-w-2xl rounded-2xl p-5 text-white sm:p-6 ${shellClassName} ${className}`.trim()}
     >
       <div className="get-started-form-grid grid gap-x-6 gap-y-5 sm:grid-cols-2">
         <div className="get-started-form-field">
           <label
             className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-secondary"
-            htmlFor="get-started-name"
+            htmlFor={nameId}
           >
             {dict.contact.form.name}
           </label>
           <input
             autoComplete="name"
             className="w-full rounded-xl border border-white/10 bg-white/30 px-4 py-3 text-base text-white outline-none transition placeholder:text-white/58 focus:bg-white/38 focus:ring-2 focus:ring-secondary/45"
-            id="get-started-name"
+            id={nameId}
             name="name"
             placeholder={dict.contact.form.name}
             required
@@ -49,14 +66,14 @@ export function GetStartedForm({ dict }: { dict: Dictionary }) {
         <div className="get-started-form-field">
           <label
             className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-secondary"
-            htmlFor="get-started-email"
+            htmlFor={emailId}
           >
             {dict.contact.form.email}
           </label>
           <input
             autoComplete="email"
             className="w-full rounded-xl border border-white/10 bg-white/30 px-4 py-3 text-base text-white outline-none transition placeholder:text-white/58 focus:bg-white/38 focus:ring-2 focus:ring-secondary/45"
-            id="get-started-email"
+            id={emailId}
             name="email"
             placeholder={dict.contact.form.email}
             required
@@ -66,13 +83,13 @@ export function GetStartedForm({ dict }: { dict: Dictionary }) {
         <div className="get-started-form-field sm:col-span-2">
           <label
             className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-secondary"
-            htmlFor="get-started-message"
+            htmlFor={messageId}
           >
             {dict.contact.form.message}
           </label>
           <textarea
             className="min-h-32 w-full resize-none rounded-xl border border-white/10 bg-white/30 px-4 py-3 text-base leading-7 text-white outline-none transition placeholder:text-white/58 focus:bg-white/38 focus:ring-2 focus:ring-secondary/45"
-            id="get-started-message"
+            id={messageId}
             name="message"
             placeholder={dict.contact.form.message}
             required
