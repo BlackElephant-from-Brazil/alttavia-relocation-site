@@ -4,24 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run dev:web",
-    "dev:web": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "dev:cms": "npm --prefix cms run develop",
-    "build": "npm run build:web",
-    "build:web": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next build",
-    "build:cms": "npm --prefix cms run build",
-    "start": "npm run start:web",
-    "start:web": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "start:cms": "npm --prefix cms run start",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next build",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "seed:cms": "npm --prefix cms run seed"
+    "test": "vitest run"
   },
   "dependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "bcryptjs": "^3.0.3",
     "cross-env": "10.1.0",
+    "gray-matter": "^4.0.3",
+    "iron-session": "^8.0.4",
     "lucide-react": "^0.511.0",
     "next": "15.4.11",
+    "next-mdx-remote": "^6.0.0",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },

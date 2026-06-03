@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import type { Locale } from '@/i18n/routing'
-import { formatPostDate, getMediaUrl, type BlogPost } from '@/lib/strapi'
+import { formatPostDate, getMediaUrl, type BlogPost } from '@/lib/blog'
 
 export function BlogCard({
   post,

@@ -7,10 +7,5 @@ dist
 payload.db
 payload.db-*
 media
-cms/.env
-cms/.tmp
-cms/dist
-cms/build
-cms/.cache
 *.log
 coverage

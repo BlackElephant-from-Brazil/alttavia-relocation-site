@@ -172,3 +172,90 @@ body {
     box-shadow: 0 0 0 0 rgba(208, 161, 43, 0);
   }
 }
+
+/* Admin markdown preview styles */
+.preview-content h1 {
+  font-family: var(--font-display), serif;
+  font-size: 2rem;
+  color: #0e2a47;
+  margin: 1.5rem 0 0.75rem;
+  line-height: 1.2;
+}
+.preview-content h2 {
+  font-family: var(--font-display), serif;
+  font-size: 1.6rem;
+  color: #0e2a47;
+  margin: 1.25rem 0 0.6rem;
+  line-height: 1.25;
+}
+.preview-content h3 {
+  font-family: var(--font-display), serif;
+  font-size: 1.3rem;
+  color: #0e2a47;
+  margin: 1rem 0 0.5rem;
+}
+.preview-content p {
+  margin: 0.75rem 0;
+  color: #303844;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.preview-content strong { font-weight: 600; color: #0e2a47; }
+.preview-content em { font-style: italic; }
+.preview-content blockquote {
+  border-left: 2px solid #d0a12b;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  font-family: var(--font-display), serif;
+  font-size: 1.25rem;
+  color: #0e2a47;
+}
+.preview-content code {
+  background: #f7f4ee;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85em;
+  color: #0e2a47;
+}
+.preview-content a {
+  color: #d0a12b;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.preview-content .preview-img {
+  width: 100%;
+  border-radius: 1rem;
+  margin: 1.5rem 0;
+  display: block;
+}
+.preview-content .preview-faq {
+  border: 1px solid rgba(14, 42, 71, 0.1);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  background: rgba(255,255,255,0.8);
+}
+.preview-content .preview-faq-item {
+  border-top: 1px solid rgba(14, 42, 71, 0.08);
+}
+.preview-content .preview-faq-item:first-child {
+  border-top: none;
+}
+.preview-content .preview-faq-q {
+  display: block;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-display), serif;
+  font-size: 1.05rem;
+  color: #0e2a47;
+  cursor: pointer;
+  list-style: none;
+}
+.preview-content .preview-faq-q::-webkit-details-marker { display: none; }
+.preview-content .preview-faq-a {
+  padding: 0 1.25rem 1rem;
+  color: #303844;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}

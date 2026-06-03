@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
-import { BlogCard } from '@/components/blog/BlogCard'
 import { NewsletterSignup } from '@/components/blog/NewsletterSignup'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { normalizeLocale } from '@/i18n/routing'
 import { createMetadata } from '@/lib/metadata'
-import { getPosts } from '@/lib/strapi'
+import { getPublishedPosts } from '@/lib/posts'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPage({ params }: Props) {
   const locale = normalizeLocale((await params).locale)
-  const posts = await getPosts(locale, 3).catch(() => [])
+  const posts = getPublishedPosts()
 
   return (
     <main>
@@ -64,11 +64,49 @@ export default async function BlogPage({ params }: Props) {
             </div>
           </div>
 
-          {posts.length ? (
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {posts.map((post) => (
-                <BlogCard key={post.id} post={post} locale={locale} readMore="View more" />
-              ))}
+          {posts.length > 0 ? (
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => {
+                const date = new Date(post.date).toLocaleDateString('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })
+                return (
+                  <article
+                    key={post.slug}
+                    className="group relative overflow-hidden rounded-3xl border border-primary/10 bg-white/80 shadow-soft backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:bg-white hover:shadow-glass"
+                  >
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/60 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                    <Link href={`/blog/${post.slug}`} className="block cursor-pointer p-7">
+                      <div className="mb-4 flex flex-wrap gap-2">
+                        {post.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-secondary/30 bg-secondary/8 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-secondary"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <h2 className="font-serif text-2xl leading-tight text-ink transition group-hover:text-primary md:text-3xl">
+                        {post.title}
+                      </h2>
+                      <p className="mt-3 line-clamp-3 text-base leading-7 text-graphite">{post.excerpt}</p>
+                      <div className="mt-6 flex items-center justify-between border-t border-primary/8 pt-5">
+                        <div className="flex flex-col gap-0.5">
+                          <span className="text-xs font-semibold text-ink/70">{post.author}</span>
+                          <span className="text-xs text-graphite/60">{date}</span>
+                        </div>
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-secondary transition group-hover:gap-2.5">
+                          Read article
+                          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                      </div>
+                    </Link>
+                  </article>
+                )
+              })}
             </div>
           ) : (
             <div className="mt-10 rounded-3xl border border-primary/10 bg-white/70 p-10 text-center text-graphite shadow-soft">
@@ -93,8 +131,8 @@ export default async function BlogPage({ params }: Props) {
             <Eyebrow className="text-secondary">Updates</Eyebrow>
             <h2 className="mt-5 font-serif text-4xl leading-tight md:text-5xl">Stay Informed. Stay Ahead.</h2>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-white/84">
-              Regulations and procedures change quickly. Don’t miss updates that could affect your relocation plans.
-              Join our mailing list to stay up to date.
+              Regulations and procedures change quickly. Don&apos;t miss updates that could affect your relocation
+              plans. Join our mailing list to stay up to date.
             </p>
             <NewsletterSignup />
           </div>

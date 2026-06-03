@@ -11,7 +11,6 @@ describe('dictionaries', () => {
       expect(dict.common.visualTitle).toBeTruthy()
       expect(dict.common.visualItems).toHaveLength(4)
       expect(dict.footer.pagesLabel).toBeTruthy()
-      expect(dict.footer.cmsLabel).toBeTruthy()
       expect(dict.contact.emailLabel).toBeTruthy()
       expect(dict.contact.whatsapp).toBeTruthy()
     }

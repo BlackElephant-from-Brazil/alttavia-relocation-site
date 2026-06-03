@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { BadgeCheck, Compass, Scale, ShieldCheck } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowRight, BadgeCheck, Compass, Scale, ShieldCheck } from 'lucide-react'
 
-import { BlogCard } from '@/components/blog/BlogCard'
 import { CountUpNumber } from '@/components/sections/CountUpNumber'
 import { FeaturedIn } from '@/components/sections/FeaturedIn'
 import { GetStartedForm } from '@/components/sections/GetStartedForm'
@@ -17,7 +17,7 @@ import { getDictionary } from '@/i18n/dictionaries'
 import { normalizeLocale } from '@/i18n/routing'
 import { createMetadata } from '@/lib/metadata'
 import { getGoogleReviews } from '@/lib/googleReviews'
-import { getPageByKey, getPosts } from '@/lib/strapi'
+import { getPublishedPosts, type Post } from '@/lib/posts'
 
 export const dynamic = 'force-dynamic'
 
@@ -82,18 +82,13 @@ const whyUs = [
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = normalizeLocale((await params).locale)
   const dict = getDictionary(locale)
-  const cms = await getPageByKey(locale, 'home').catch(() => null)
-  return createMetadata(
-    cms?.seoTitle || dict.seo.home.title,
-    cms?.seoDescription || dict.seo.home.description,
-    `/${locale}`,
-  )
+  return createMetadata(dict.seo.home.title, dict.seo.home.description, `/${locale}`)
 }
 
 export default async function HomePage({ params }: Props) {
   const locale = normalizeLocale((await params).locale)
   const dict = getDictionary(locale)
-  const posts = await getPosts(locale, 3).catch(() => [])
+  const posts: Post[] = getPublishedPosts().slice(0, 3)
   const googleReviews = await getGoogleReviews().catch(() => [])
 
   return (
@@ -298,7 +293,40 @@ export default async function HomePage({ params }: Props) {
           {posts.length ? (
             <div className="grid gap-6 md:grid-cols-3">
               {posts.map((post) => (
-                <BlogCard key={post.id} locale={locale} post={post} readMore={dict.common.readMore} />
+                <article
+                  key={post.slug}
+                  className="group relative overflow-hidden rounded-3xl border border-primary/10 bg-white/80 shadow-soft backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:bg-white hover:shadow-glass"
+                >
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/60 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                  <Link href={`/blog/${post.slug}`} className="block cursor-pointer p-7">
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      {post.tags.slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-secondary/30 bg-secondary/8 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-secondary"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="font-serif text-2xl leading-tight text-ink transition group-hover:text-primary">
+                      {post.title}
+                    </h3>
+                    <p className="mt-3 line-clamp-3 text-base leading-7 text-graphite">{post.excerpt}</p>
+                    <div className="mt-6 flex items-center justify-between border-t border-primary/8 pt-5">
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-xs font-semibold text-ink/70">{post.author}</span>
+                        <span className="text-xs text-graphite/60">
+                          {new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </span>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-secondary transition group-hover:gap-2.5">
+                        {dict.common.readMore}
+                        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      </span>
+                    </div>
+                  </Link>
+                </article>
               ))}
             </div>
           ) : (

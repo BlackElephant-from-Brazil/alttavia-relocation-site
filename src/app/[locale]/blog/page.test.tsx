@@ -21,7 +21,6 @@ describe('BlogPage rebuilt content', () => {
     const source = readFileSync(join(process.cwd(), 'src/app/[locale]/blog/page.tsx'), 'utf8')
 
     expect(source).toContain('Immigration updates, relocation strategies, and insider knowledge')
-    expect(source).toContain('getPosts(locale, 3)')
     expect(source).toContain('readMore="View more"')
     expect(source).toContain('<NewsletterSignup')
     expect(source).toContain('Regulations and procedures change quickly.')

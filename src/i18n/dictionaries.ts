@@ -139,9 +139,7 @@ export const dictionaries = {
     },
     footer: {
       tagline: 'Move. Settle. Thrive.',
-      legal: 'Development build for local CMS editing.',
       pagesLabel: 'Pages',
-      cmsLabel: 'CMS',
     },
   },
   pt: {
@@ -280,9 +278,7 @@ export const dictionaries = {
     },
     footer: {
       tagline: 'Mude. Estabeleça-se. Prospere.',
-      legal: 'Build de desenvolvimento para edição local no CMS.',
       pagesLabel: 'Páginas',
-      cmsLabel: 'CMS',
     },
   },
   es: {
@@ -421,9 +417,7 @@ export const dictionaries = {
     },
     footer: {
       tagline: 'Múdate. Instálate. Prospera.',
-      legal: 'Build de desarrollo para edición local en el CMS.',
       pagesLabel: 'Páginas',
-      cmsLabel: 'CMS',
     },
   },
 } satisfies Record<Locale, Record<string, unknown>>
