@@ -120,7 +120,7 @@ export default async function ContactPage({ params }: Props) {
             </div>
           </div>
 
-          <GetStartedForm dict={dict} idPrefix="contact-hero" variant="glass" className="!mt-0 !max-w-none" />
+          <GetStartedForm dict={dict} locale={locale} idPrefix="contact-hero" variant="glass" className="!mt-0 !max-w-none" />
         </div>
       </section>
 

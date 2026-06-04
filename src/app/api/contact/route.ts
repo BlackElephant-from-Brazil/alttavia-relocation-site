@@ -9,9 +9,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: result.error }, { status: 400 })
   }
 
-  console.info('Contact form submission received', result.data)
+  const webhookUrl = process.env.N8N_CONTACT_WEBHOOK
+  if (webhookUrl) {
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(result.data),
+      })
+    } catch (err) {
+      console.error('n8n contact webhook error', err)
+    }
+  }
 
-  return NextResponse.json({
-    ok: true,
-  })
+  return NextResponse.json({ ok: true })
 }

@@ -103,7 +103,7 @@ export default async function HomePage({ params }: Props) {
         visualItems={dict.common.visualItems}
         visualTitle={dict.common.visualTitle}
         imageSrc={homeHeroContent.imageSrc}
-        aside={<GetStartedForm dict={dict} idPrefix="hero-contact" variant="glass" className="!mt-0 !max-w-none" />}
+        aside={<GetStartedForm dict={dict} locale={locale} idPrefix="hero-contact" variant="glass" className="!mt-0 !max-w-none" />}
       />
 
       <FeaturedIn />
@@ -362,7 +362,7 @@ export default async function HomePage({ params }: Props) {
                 we know how it feels.
               </p>
             </div>
-            <GetStartedForm dict={dict} />
+            <GetStartedForm dict={dict} locale={locale} />
           </div>
         </div>
       </section>

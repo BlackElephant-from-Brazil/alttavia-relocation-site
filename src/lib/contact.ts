@@ -3,6 +3,7 @@ export type ContactSubmission = {
   email: string
   phone: string
   message: string
+  language: string
 }
 
 export type ContactParseResult =
@@ -28,6 +29,7 @@ export function parseContactForm(formData: FormData): ContactParseResult {
     email: getString(formData, 'email'),
     phone: getString(formData, 'phone'),
     message: getString(formData, 'message'),
+    language: getString(formData, 'language') || 'en',
   }
 
   const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)

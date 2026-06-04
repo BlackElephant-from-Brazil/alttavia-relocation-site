@@ -7,11 +7,13 @@ import type { Dictionary } from '@/i18n/dictionaries'
 
 export function GetStartedForm({
   dict,
+  locale = 'en',
   idPrefix = 'get-started',
   variant = 'solid',
   className = '',
 }: {
   dict: Dictionary
+  locale?: string
   idPrefix?: string
   variant?: 'solid' | 'glass'
   className?: string
@@ -46,6 +48,7 @@ export function GetStartedForm({
       onSubmit={onSubmit}
       className={`get-started-form-shell mt-10 max-w-2xl rounded-2xl p-5 text-white sm:p-6 ${shellClassName} ${className}`.trim()}
     >
+      <input type="hidden" name="language" value={locale} />
       <div className="get-started-form-grid grid gap-x-6 gap-y-5 sm:grid-cols-2">
         <div className="get-started-form-field">
           <label
