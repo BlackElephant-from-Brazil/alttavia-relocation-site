@@ -67,7 +67,7 @@ export function GoogleReviewsSection({ reviews }: { reviews: GoogleReview[] }) {
         </div>
 
         {marqueeReviews.length ? (
-          <div className="google-reviews-scroll -mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0">
+          <div className="google-reviews-scroll -mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:thin] [scrollbar-color:#D0A12B_transparent] md:mx-0 md:px-0">
             <div className="google-reviews-track flex w-max min-w-full gap-4">
               {marqueeReviews.map((review) => (
                 <ReviewCard key={`${review.authorName}-${review.time}`} review={review} />

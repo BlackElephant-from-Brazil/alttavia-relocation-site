@@ -207,7 +207,7 @@ export default async function HomePage({ params }: Props) {
             title="How Alttavia Relocation Can Help You Relocate"
             text="Successful relocation requires managing multiple government processes simultaneously. We provide consultancy and direct support across Portugal, Spain, and Malta for:"
           />
-          <div className="-mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0 md:pb-0">
+          <div className="-mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:thin] [scrollbar-color:#D0A12B_transparent] md:mx-0 md:overflow-visible md:px-0 md:pb-0">
             <div className="flex w-max gap-4 md:grid md:w-auto md:grid-cols-2 lg:grid-cols-3">
               {services.map(([title, text], index) => (
                 <article
@@ -238,7 +238,6 @@ export default async function HomePage({ params }: Props) {
               backgroundSize: '34px 34px',
             }}
           />
-          <div className="absolute inset-x-10 top-0 h-px bg-secondary/80" aria-hidden="true" />
           <p className="relative max-w-2xl text-lg leading-8 text-white">
             We handle everything directly as licensed attorneys. This means no outsourcing, middlemen, or delays.
           </p>

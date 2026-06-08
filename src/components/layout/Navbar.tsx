@@ -52,9 +52,9 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           isOverHero,
         )}`}
       >
-        <Link href={`/${locale}`} className="inline-flex items-center gap-3" aria-label="Alttavia Relocation home">
+        <Link href={`/${locale}`} className="inline-flex items-end gap-3" aria-label="Alttavia Relocation home">
           <Image src="/logo-min.svg" alt="Alttavia Relocation" width={85} height={68} className="h-8 w-auto" priority />
-          <span className={`text-sm font-semibold tracking-[0.12em] ${brandTextClass}`}>Alttavia</span>
+          <span className={`font-sans text-base font-bold tracking-[0.10em] ${brandTextClass}`}>Alttavia</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

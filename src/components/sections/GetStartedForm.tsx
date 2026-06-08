@@ -1,9 +1,12 @@
 'use client'
 
-import { Compass } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 
 import type { Dictionary } from '@/i18n/dictionaries'
+
+const inputClass =
+  'w-full rounded-xl border border-primary/15 bg-white/90 px-4 py-3.5 text-base text-ink outline-none ring-1 ring-transparent transition-all duration-200 placeholder:text-graphite/45 hover:border-primary/25 hover:bg-white focus:border-secondary/60 focus:bg-white focus:ring-2 focus:ring-secondary/15 focus:shadow-[0_0_0_4px_rgba(208,161,43,0.08)]'
 
 export function GetStartedForm({
   dict,
@@ -22,10 +25,11 @@ export function GetStartedForm({
   const nameId = `${idPrefix}-name`
   const emailId = `${idPrefix}-email`
   const messageId = `${idPrefix}-message`
-  const shellClassName =
+
+  const shellClass =
     variant === 'glass'
-      ? 'border border-white/25 bg-white/12 shadow-glass backdrop-blur-2xl'
-      : 'border border-white/10 bg-[linear-gradient(145deg,#1A436A,#153858)] shadow-[0_22px_70px_rgba(0,0,0,0.18)]'
+      ? 'border border-white/18 bg-white/10 shadow-glass backdrop-blur-2xl'
+      : 'border border-white/12 bg-[linear-gradient(145deg,#1A436A,#153858)] shadow-[0_22px_70px_rgba(0,0,0,0.22)]'
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -46,36 +50,38 @@ export function GetStartedForm({
   return (
     <form
       onSubmit={onSubmit}
-      className={`get-started-form-shell mt-10 max-w-2xl rounded-2xl p-5 text-white sm:p-6 ${shellClassName} ${className}`.trim()}
+      className={`mt-10 max-w-2xl rounded-2xl p-6 text-white sm:p-7 ${shellClass} ${className}`.trim()}
     >
       <input type="hidden" name="language" value={locale} />
-      <div className="get-started-form-grid grid gap-x-6 gap-y-5 sm:grid-cols-2">
-        <div className="get-started-form-field">
+
+      <div className="grid gap-x-5 gap-y-5 sm:grid-cols-2">
+        <div>
           <label
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-secondary"
+            className="mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-secondary"
             htmlFor={nameId}
           >
             {dict.contact.form.name}
           </label>
           <input
             autoComplete="name"
-            className="w-full rounded-xl border border-white/10 bg-white/30 px-4 py-3 text-base text-white outline-none transition placeholder:text-white/58 focus:bg-white/38 focus:ring-2 focus:ring-secondary/45"
+            className={inputClass}
             id={nameId}
             name="name"
             placeholder={dict.contact.form.name}
             required
           />
         </div>
-        <div className="get-started-form-field">
+
+        <div>
           <label
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-secondary"
+            className="mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-secondary"
             htmlFor={emailId}
           >
             {dict.contact.form.email}
           </label>
           <input
             autoComplete="email"
-            className="w-full rounded-xl border border-white/10 bg-white/30 px-4 py-3 text-base text-white outline-none transition placeholder:text-white/58 focus:bg-white/38 focus:ring-2 focus:ring-secondary/45"
+            className={inputClass}
             id={emailId}
             name="email"
             placeholder={dict.contact.form.email}
@@ -83,15 +89,16 @@ export function GetStartedForm({
             type="email"
           />
         </div>
-        <div className="get-started-form-field sm:col-span-2">
+
+        <div className="sm:col-span-2">
           <label
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-secondary"
+            className="mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-secondary"
             htmlFor={messageId}
           >
             {dict.contact.form.message}
           </label>
           <textarea
-            className="min-h-32 w-full resize-none rounded-xl border border-white/10 bg-white/30 px-4 py-3 text-base leading-7 text-white outline-none transition placeholder:text-white/58 focus:bg-white/38 focus:ring-2 focus:ring-secondary/45"
+            className={`${inputClass} min-h-[7.5rem] resize-none leading-7`}
             id={messageId}
             name="message"
             placeholder={dict.contact.form.message}
@@ -99,18 +106,28 @@ export function GetStartedForm({
           />
         </div>
       </div>
-      <div className="mt-7 flex justify-start">
+
+      <div className="mt-6">
         <button
-          className="get-started-form-submit inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary shadow-soft transition hover:-translate-y-0.5 hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-secondary/50 disabled:opacity-70 sm:w-fit"
+          className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-primary shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary hover:shadow-[0_8px_24px_rgba(208,161,43,0.3)] focus:outline-none focus:ring-2 focus:ring-secondary/50 disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit"
           disabled={status === 'loading'}
           type="submit"
         >
           Speak to our Experts
-          <Compass className="h-4 w-4" aria-hidden="true" />
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
-      {status === 'success' ? <p className="mt-4 text-sm text-white">{dict.contact.form.success}</p> : null}
-      {status === 'error' ? <p className="mt-4 text-sm text-red-100">{dict.contact.form.error}</p> : null}
+
+      {status === 'success' ? (
+        <div className="mt-4 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white/90 backdrop-blur-sm">
+          {dict.contact.form.success}
+        </div>
+      ) : null}
+      {status === 'error' ? (
+        <div className="mt-4 rounded-xl border border-red-400/30 bg-red-500/15 px-4 py-3 text-sm text-red-200">
+          {dict.contact.form.error}
+        </div>
+      ) : null}
     </form>
   )
 }

@@ -13,9 +13,11 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: hidden;
   min-height: 100vh;
   background:
     linear-gradient(180deg, rgba(251, 250, 247, 0.94), rgba(247, 244, 238, 0.98)),
@@ -26,6 +28,29 @@ body {
 ::selection {
   background: #d0a12b;
   color: #0e2a47;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0a12b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b88a20;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d0a12b transparent;
 }
 
 .hero-marquee-track {
