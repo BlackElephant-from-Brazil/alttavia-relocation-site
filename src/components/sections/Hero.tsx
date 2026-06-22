@@ -50,6 +50,7 @@ export function Hero({
 
   return (
     <section
+      id="hero"
       className={`relative isolate flex min-h-screen overflow-hidden px-6 ${
         hasImage
           ? 'items-end pb-10 pt-28 md:items-end md:pb-14 md:pt-36'

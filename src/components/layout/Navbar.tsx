@@ -24,9 +24,21 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const [isOverHero, setIsOverHero] = useState(true)
 
   useEffect(() => {
+    const navbarProbeY = 56
+
     const updateChrome = () => {
       const heroThreshold = Math.max(window.innerHeight - 96, 0)
-      setIsOverHero(window.scrollY < heroThreshold)
+      const overHero = window.scrollY < heroThreshold
+
+      const getStarted = document.getElementById('get-started')
+      const overGetStarted = getStarted
+        ? (() => {
+            const rect = getStarted.getBoundingClientRect()
+            return rect.top <= navbarProbeY && rect.bottom >= navbarProbeY
+          })()
+        : false
+
+      setIsOverHero(overHero || overGetStarted)
     }
 
     updateChrome()
@@ -54,7 +66,7 @@ export function Navbar({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       >
         <Link href={`/${locale}`} className="inline-flex items-end gap-3" aria-label="Alttavia Relocation home">
           <Image src="/logo-min.svg" alt="Alttavia Relocation" width={85} height={68} className="h-8 w-auto" priority />
-          <span className={`font-sans text-base font-bold tracking-[0.10em] ${brandTextClass}`}>Alttavia</span>
+          <span className={`font-sans text-base font-semibold uppercase tracking-tight ${brandTextClass}`}>Alttavia</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

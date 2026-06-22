@@ -138,8 +138,14 @@ export const dictionaries = {
       },
     },
     footer: {
-      tagline: 'Move. Settle. Thrive.',
+      tagline: 'Relocate. Settle. Thrive.',
       pagesLabel: 'Pages',
+      contactLabel: 'Contact',
+      followLabel: 'Follow us',
+      legalLabel: 'Legal',
+      privacyPolicy: 'Privacy Policy',
+      termsOfUse: 'Terms of Use',
+      rights: 'All rights reserved.',
     },
   },
   pt: {
@@ -277,8 +283,14 @@ export const dictionaries = {
       },
     },
     footer: {
-      tagline: 'Mude. Estabeleça-se. Prospere.',
+      tagline: 'Mude-se. Estabeleça-se. Prospere.',
       pagesLabel: 'Páginas',
+      contactLabel: 'Contato',
+      followLabel: 'Siga-nos',
+      legalLabel: 'Legal',
+      privacyPolicy: 'Política de Privacidade',
+      termsOfUse: 'Termos de Uso',
+      rights: 'Todos os direitos reservados.',
     },
   },
   es: {
@@ -418,6 +430,12 @@ export const dictionaries = {
     footer: {
       tagline: 'Múdate. Instálate. Prospera.',
       pagesLabel: 'Páginas',
+      contactLabel: 'Contacto',
+      followLabel: 'Síguenos',
+      legalLabel: 'Legal',
+      privacyPolicy: 'Política de Privacidad',
+      termsOfUse: 'Términos de Uso',
+      rights: 'Todos los derechos reservados.',
     },
   },
 } satisfies Record<Locale, Record<string, unknown>>
