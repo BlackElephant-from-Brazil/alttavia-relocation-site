@@ -54,6 +54,17 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               </a>
             ))}
           </div>
+          <p className="mt-6 hidden text-sm text-white/70 md:block">
+            Made with <span aria-hidden="true">❤️</span> by{' '}
+            <a
+              className="font-bold text-secondary transition hover:underline"
+              href="https://blackelephant.com.br/en"
+              rel="noreferrer"
+              target="_blank"
+            >
+              BlackElephant
+            </a>
+          </p>
         </div>
 
         <div>
@@ -84,6 +95,17 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               +351 934 548 395
             </a>
           </div>
+          <p className="mt-6 text-sm text-white/70 md:hidden">
+            Made with <span aria-hidden="true">❤️</span> by{' '}
+            <a
+              className="font-bold text-secondary transition hover:underline"
+              href="https://blackelephant.com.br/en"
+              rel="noreferrer"
+              target="_blank"
+            >
+              BlackElephant
+            </a>
+          </p>
         </div>
       </div>
 
