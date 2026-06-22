@@ -5,20 +5,13 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Pencil, Trash2, Eye, EyeOff, Loader2, ExternalLink } from 'lucide-react'
 import type { Post } from '@/lib/posts'
-
-type Toast = { id: number; message: string; type: 'success' | 'error' }
+import { useToasts, ToastViewport } from './Toast'
 
 export function PostsTable({ initialPosts }: { initialPosts: Post[] }) {
   const router = useRouter()
   const [posts, setPosts] = useState(initialPosts)
   const [loading, setLoading] = useState<string | null>(null)
-  const [toasts, setToasts] = useState<Toast[]>([])
-
-  function addToast(message: string, type: 'success' | 'error') {
-    const id = Date.now()
-    setToasts((prev) => [...prev, { id, message, type }])
-    setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 3500)
-  }
+  const { toasts, addToast } = useToasts()
 
   async function togglePublished(post: Post) {
     setLoading(`toggle-${post.slug}`)
@@ -60,21 +53,7 @@ export function PostsTable({ initialPosts }: { initialPosts: Post[] }) {
 
   return (
     <div className="relative">
-      {/* Toast container */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
-        {toasts.map((toast) => (
-          <div
-            key={toast.id}
-            className={`flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-glass backdrop-blur-xl transition ${
-              toast.type === 'success'
-                ? 'border-secondary/30 bg-secondary/10 text-primary'
-                : 'border-red-200 bg-red-50 text-red-700'
-            }`}
-          >
-            <span className="text-sm font-medium">{toast.message}</span>
-          </div>
-        ))}
-      </div>
+      <ToastViewport toasts={toasts} />
 
       {posts.length === 0 ? (
         <div className="rounded-3xl border border-primary/10 bg-white/70 p-16 text-center shadow-soft">

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useCallback, useRef } from 'react'
 import { Loader2, Eye, PenLine, ImageIcon, Bold, Italic, Quote } from 'lucide-react'
 import type { Post } from '@/lib/posts'
+import { queueToast, useToasts, ToastViewport } from './Toast'
 
 type FormValues = {
   title: string
@@ -101,9 +102,8 @@ export function PostForm({ initialValues, mode, slug }: Props) {
 
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
   const [tab, setTab] = useState<'write' | 'preview'>('write')
+  const { toasts, addToast } = useToasts()
 
   function set(field: keyof FormValues, value: string | boolean) {
     setValues((prev) => ({ ...prev, [field]: value }))
@@ -165,7 +165,6 @@ export function PostForm({ initialValues, mode, slug }: Props) {
     if (!file) return
 
     setUploading(true)
-    setError('')
     try {
       const formData = new FormData()
       formData.append('file', file)
@@ -177,7 +176,7 @@ export function PostForm({ initialValues, mode, slug }: Props) {
       const data = await res.json() as { url: string }
       insertAtCursor(`![](${data.url})`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Image upload failed.')
+      addToast(err instanceof Error ? err.message : 'Image upload failed.', 'error')
     } finally {
       setUploading(false)
       if (fileInputRef.current) fileInputRef.current.value = ''
@@ -190,13 +189,11 @@ export function PostForm({ initialValues, mode, slug }: Props) {
     async (e: React.FormEvent) => {
       e.preventDefault()
       if (!values.title.trim()) {
-        setError('Title is required.')
+        addToast('Title is required.', 'error')
         return
       }
 
       setSaving(true)
-      setError('')
-      setSuccess('')
 
       const payload = {
         ...values,
@@ -221,15 +218,11 @@ export function PostForm({ initialValues, mode, slug }: Props) {
           throw new Error(data.error ?? 'Unknown error')
         }
 
-        const saved = await res.json() as Post
-        setSuccess(mode === 'edit' ? 'Post updated.' : 'Post created.')
-
-        if (mode === 'create') {
-          router.push(`/admin/posts/${saved.slug}/edit`)
-        }
+        await res.json()
+        queueToast(mode === 'edit' ? 'Post updated.' : 'Post created.', 'success')
+        router.push('/admin')
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to save post.')
-      } finally {
+        addToast(err instanceof Error ? err.message : 'Failed to save post.', 'error')
         setSaving(false)
       }
     },
@@ -240,15 +233,7 @@ export function PostForm({ initialValues, mode, slug }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="flex h-full flex-col gap-6">
-      {/* Status bar */}
-      {error && (
-        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
-      )}
-      {success && (
-        <div className="rounded-2xl border border-secondary/30 bg-secondary/10 px-4 py-3 text-sm font-medium text-primary">
-          {success}
-        </div>
-      )}
+      <ToastViewport toasts={toasts} />
 
       {/* Metadata fields */}
       <div className="rounded-3xl border border-primary/10 bg-white/80 p-6 shadow-soft">
@@ -367,7 +352,7 @@ export function PostForm({ initialValues, mode, slug }: Props) {
       </div>
 
       {/* Editor / Preview */}
-      <div className="flex-1 overflow-hidden rounded-3xl border border-primary/10 bg-white/80 shadow-soft">
+      <div className="flex max-h-[80vh] flex-1 flex-col overflow-hidden rounded-3xl border border-primary/10 bg-white/80 shadow-soft">
         {/* Tab bar */}
         <div className="flex items-center border-b border-primary/8 bg-mist/40 px-4">
           <button
@@ -452,10 +437,10 @@ export function PostForm({ initialValues, mode, slug }: Props) {
         </div>
 
         {/* Two-column: both always rendered but toggled via CSS on mobile */}
-        <div className="flex min-h-[400px]">
+        <div className="flex min-h-0 flex-1">
           {/* Editor column */}
           <div
-            className={`flex flex-col ${
+            className={`flex min-h-0 flex-col ${
               tab === 'preview' ? 'hidden md:flex' : 'flex'
             } flex-1 md:border-r md:border-primary/8`}
           >
@@ -468,14 +453,14 @@ export function PostForm({ initialValues, mode, slug }: Props) {
               value={values.content}
               onChange={(e) => set('content', e.target.value)}
               placeholder={`Write your post in Markdown...\n\n# Start with a heading\n\nA paragraph with **bold** and *italic* text.\n\n> A blockquote for emphasis`}
-              className="flex-1 resize-none bg-transparent px-6 py-5 font-mono text-sm leading-7 text-ink placeholder:text-graphite/30 focus:outline-none"
+              className="min-h-0 flex-1 resize-none overflow-y-auto bg-transparent px-6 py-5 font-mono text-sm leading-7 text-ink placeholder:text-graphite/30 focus:outline-none"
               spellCheck
             />
           </div>
 
           {/* Preview column */}
           <div
-            className={`${tab === 'write' ? 'hidden md:block' : 'block'} flex-1 overflow-y-auto px-8 py-5`}
+            className={`${tab === 'write' ? 'hidden md:block' : 'block'} min-h-0 flex-1 overflow-y-auto px-8 py-5`}
           >
             {values.content ? (
               <div
