@@ -1,11 +1,16 @@
 ---
 title: 'Portugal, Spain or Malta: Where to Relocate in 2026'
 date: '2026-06-22'
-excerpt: ''
+excerpt: >-
+  Portugal, Spain and Malta attract people for very different reasons. The real
+  question is not which country is better, but which environment fits the life
+  you are trying to build next.
 author: Patrícia Viana
 slug: portugal-spain-or-malta-where-to-relocate-in-2026
 published: true
-tags: []
+tags:
+  - Portugal Spain Malta Relocation
+  - Choosing Where to Relocate
 ---
 ![](/blog/images/1782155637009-2zg1g0wfd05.webp)
 At a certain point, relocation stops being an idea and becomes a decision.
