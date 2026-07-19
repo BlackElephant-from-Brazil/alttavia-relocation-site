@@ -10,7 +10,7 @@ import { normalizeLocale } from '@/i18n/routing'
 import { createMetadata } from '@/lib/metadata'
 import { getPublishedPosts } from '@/lib/posts'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 type Props = {
   params: Promise<{ locale: string }>

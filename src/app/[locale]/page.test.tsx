@@ -5,10 +5,14 @@ import { describe, expect, it } from 'vitest'
 describe('HomePage challenge section', () => {
   it('places the challenge intro above the new image and the styled questions below it', () => {
     const markup = readFileSync(join(process.cwd(), 'src/app/[locale]/page.tsx'), 'utf8')
+    const questionsMarkup = readFileSync(
+      join(process.cwd(), 'src/components/sections/ChallengeQuestions.tsx'),
+      'utf8',
+    )
 
     const introIndex = markup.indexOf('The Questions Most Expats Struggle With')
     const imageIndex = markup.indexOf('/imagem-2.jpg')
-    const questionsIndex = markup.indexOf('challengeQuestions.map', imageIndex)
+    const questionsIndex = markup.indexOf('<ChallengeQuestions', imageIndex)
 
     expect(introIndex).toBeGreaterThan(-1)
     expect(imageIndex).toBeGreaterThan(introIndex)
@@ -19,9 +23,9 @@ describe('HomePage challenge section', () => {
     expect(markup).toContain('challenge-image-frame')
     expect(markup).toContain('challenge-floating-tag')
     expect(markup).toContain('challenge-tag-dot')
-    expect(markup).toContain('challenge-question-row')
-    expect(markup).toContain('challenge-question-list')
-    expect(markup).toContain('challenge-question-number')
+    expect(questionsMarkup).toContain('challenge-question-row')
+    expect(questionsMarkup).toContain('challenge-question-list')
+    expect(questionsMarkup).toContain('challenge-question-number')
   })
 })
 

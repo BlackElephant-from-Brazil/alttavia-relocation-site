@@ -12,7 +12,7 @@ export const metadata: Metadata = createMetadata(
   '/blog',
 )
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 function PostCard({ post }: { post: ReturnType<typeof getPublishedPosts>[number] }) {
   const date = new Date(post.date).toLocaleDateString('en-US', {

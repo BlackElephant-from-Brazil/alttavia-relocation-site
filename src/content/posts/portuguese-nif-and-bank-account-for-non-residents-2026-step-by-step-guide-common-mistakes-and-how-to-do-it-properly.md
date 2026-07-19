@@ -110,7 +110,7 @@ No, obtaining a NIF does not automatically make you a tax resident. Tax residenc
 physical presence (typically 183 days rule)
 habitual residence criteria
 intention to reside
-You can hold a NIF as a non-resident without triggering tax residency.
+You can hold a NIF as a non-resident without triggering tax residency. For US citizens, this distinction matters even more once residency is triggered, see [how US citizens can realistically save with proper tax planning](/blog/us-citizens-in-portugal-how-much-can-you-realistically-save-with-proper-tax-planning-2026-guide) once you do become a Portuguese tax resident.
 
 ## NIF and bank account for visa applications (D7, D8, D2)
 For most residence visas, particularly:
@@ -166,6 +166,6 @@ Obtaining a NIF is relatively simple. Ensuring that it supports a functional ban
 ## If you are planning your move
 We assist international clients in obtaining their Portuguese NIF, arranging fiscal representation where required and opening compliant bank accounts aligned with their relocation strategy.
 
-Each case is handled individually, considering the applicant’s profile and intended pathway, including D7, D8 or D2 visas.
+Each case is handled individually, considering the applicant's profile and intended pathway, including D7, D8 or D2 visas. See our full [relocation services](/en/relocation-services) for how this fits into the broader move.
 
-If you want to know exactly where you stand and what to do next, contact us or book your Relocation Strategy Session.
+If you want to know exactly where you stand and what to do next, [contact us](/en/contact) or book your Relocation Strategy Session.

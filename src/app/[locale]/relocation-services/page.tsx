@@ -21,8 +21,6 @@ import { Eyebrow } from '@/components/ui/Eyebrow'
 import { normalizeLocale } from '@/i18n/routing'
 import { createMetadata } from '@/lib/metadata'
 
-export const dynamic = 'force-dynamic'
-
 type Props = {
   params: Promise<{ locale: string }>
 }

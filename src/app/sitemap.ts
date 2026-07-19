@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { getPublishedPosts } from '@/lib/posts'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alttavia-relocation.com'
 const locales = ['en', 'pt', 'es'] as const
@@ -22,6 +23,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       })
     }
+  }
+
+  for (const post of getPublishedPosts()) {
+    entries.push({
+      url: `${siteUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    })
   }
 
   return entries

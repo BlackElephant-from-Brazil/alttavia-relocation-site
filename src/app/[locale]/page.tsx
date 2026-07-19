@@ -3,12 +3,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, BadgeCheck, Compass, Scale, ShieldCheck } from 'lucide-react'
 
+import { ChallengeQuestions } from '@/components/sections/ChallengeQuestions'
 import { CountUpNumber } from '@/components/sections/CountUpNumber'
 import { FeaturedIn } from '@/components/sections/FeaturedIn'
 import { GetStartedForm } from '@/components/sections/GetStartedForm'
 import { GoogleReviewsSection } from '@/components/sections/GoogleReviewsSection'
 import { Hero } from '@/components/sections/Hero'
 import { ScrollReveal } from '@/components/sections/ScrollReveal'
+import { ServiceCards } from '@/components/sections/ServiceCards'
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -18,19 +20,35 @@ import { normalizeLocale } from '@/i18n/routing'
 import { createMetadata } from '@/lib/metadata'
 import { getGoogleReviews } from '@/lib/googleReviews'
 import { getPublishedPosts, type Post } from '@/lib/posts'
+import { faqPageJsonLd } from '@/lib/structuredData'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 type Props = {
   params: Promise<{ locale: string }>
 }
 
 const challengeQuestions = [
-  'Which visa pathway fits your situation?',
-  'How do you handle tax systems before costly mistakes?',
-  'Should you incorporate before or after residency?',
-  'Which government office handles what documents?',
-  'How do you figure out visa rules when sources contradict?',
+  {
+    q: 'Which visa pathway fits your situation?',
+    a: 'D7, D8, D2, or Golden Visa: the right path depends on your income type, whether you plan to work, and your long-term goals. We assess your profile first and build the strategy around it, not the other way around.',
+  },
+  {
+    q: 'How do you handle tax systems before costly mistakes?',
+    a: 'Portugal and your home country tax rules interact in ways that are easy to get wrong. We structure your tax residency and income timing early, so double taxation and compliance issues are avoided from day one.',
+  },
+  {
+    q: 'Should you incorporate before or after residency?',
+    a: "It depends on where your business is based, how it's taxed, and your visa pathway. Getting the sequence wrong can trigger unnecessary tax exposure or delay your residency application.",
+  },
+  {
+    q: 'Which government office handles what documents?',
+    a: 'AIMA, Finanças, Segurança Social, and municipal registries each play a different role, and requirements change often. We coordinate directly with each entity so nothing falls through the cracks.',
+  },
+  {
+    q: 'How do you figure out visa rules when sources contradict?',
+    a: 'Immigration rules change faster than most online guides can keep up with. As licensed attorneys working directly with Portuguese authorities, we rely on current legal text, not outdated forum posts.',
+  },
 ] as const
 
 const stats = [
@@ -40,23 +58,56 @@ const stats = [
 ] as const
 
 const services = [
-  [
-    'Immigration & Documentation',
-    'Visa applications, residence permits, and all required government filings handled directly by our attorneys.',
-  ],
-  [
-    'Business Formation & Tax Services',
-    'Company incorporation and tax regularization managed from start to finish with no outsourcing.',
-  ],
-  [
-    'Family Relocation Support',
-    'Property search, school placement, healthcare registration, and cultural integration assistance.',
-  ],
-  [
-    'Administrative Management',
-    'Document drafting, government applications, and liaison with public and private entities.',
-  ],
-  ['Logistics Coordination', 'Transportation of belongings and practical relocation support.'],
+  {
+    title: 'Immigration & Documentation',
+    text: 'Visa applications, residence permits, and all required government filings handled directly by our attorneys.',
+    details: [
+      'D7, D8, D2, and Golden Visa applications',
+      'Residence permit issuance and renewals',
+      'NIF (Portuguese tax number) registration',
+      'NISS (social security number) registration',
+      'Non-resident bank account setup as part of your D7 application',
+    ],
+  },
+  {
+    title: 'Business Formation & Tax Services',
+    text: 'Company incorporation and tax regularization managed from start to finish with no outsourcing.',
+    details: [
+      'Company incorporation in Portugal',
+      'Offshore company structuring and taxation',
+      'Tax regularization and ongoing compliance',
+      'Alignment between your business structure and your residency status',
+    ],
+  },
+  {
+    title: 'Family Relocation Support',
+    text: 'Property search, school placement, healthcare registration, and cultural integration assistance.',
+    details: [
+      'Trusted real estate partners for renting or buying a home',
+      'School search and enrollment support for your children',
+      'Healthcare registration, public and private',
+      'Ongoing support for everyday settling-in needs',
+    ],
+  },
+  {
+    title: 'Administrative Management',
+    text: 'Document drafting, government applications, and liaison with public and private entities.',
+    details: [
+      'Direct follow-up on applications filed with the Portuguese Consulate',
+      'Liaison with AIMA, Finanças, and other public entities',
+      'Administrative litigation when applications are delayed or wrongly denied',
+    ],
+  },
+  {
+    title: 'Logistics Coordination',
+    text: 'Transportation of belongings and practical relocation support.',
+    details: [
+      'International container shipping for household belongings',
+      'Customs documentation and clearance coordination',
+      'Door-to-door delivery with trusted moving partners',
+      'Scheduling aligned with your move-in date and visa timeline',
+    ],
+  },
 ] as const
 
 const whyUs = [
@@ -91,8 +142,16 @@ export default async function HomePage({ params }: Props) {
   const posts: Post[] = getPublishedPosts().slice(0, 3)
   const googleReviews = await getGoogleReviews().catch(() => [])
 
+  const faqJsonLd = faqPageJsonLd(
+    challengeQuestions.map(({ q, a }) => ({ question: q, answer: a })),
+  )
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Hero
         eyebrow={homeHeroContent.eyebrow}
         title={homeHeroContent.title}
@@ -156,19 +215,7 @@ export default async function HomePage({ params }: Props) {
             </div>
           </div>
 
-          <ol className="challenge-question-list mx-auto mt-12 max-w-4xl list-none divide-y divide-primary/10 border-y border-primary/10 p-0">
-            {challengeQuestions.map((question, index) => (
-              <li
-                key={question}
-                className="challenge-question-row group grid grid-cols-[2.25rem_1fr] items-start gap-4 py-4 text-left transition-colors hover:bg-white/[0.45] md:grid-cols-[2.75rem_1fr] md:px-3"
-              >
-                <span className="challenge-question-number pt-1 font-serif text-base leading-none text-secondary/80 md:text-lg">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="text-base leading-7 text-ink/90 md:text-lg">{question}</span>
-              </li>
-            ))}
-          </ol>
+          <ChallengeQuestions items={challengeQuestions} />
           <p className="mx-auto mt-8 max-w-3xl text-center text-lg leading-8 text-graphite">
             These decisions determine whether your relocation feels seamless or becomes months of bureaucratic delays
             costing thousands in additional fees.
@@ -207,23 +254,7 @@ export default async function HomePage({ params }: Props) {
             title="How Alttavia Relocation Can Help You Relocate"
             text="Successful relocation requires managing multiple government processes simultaneously. We provide consultancy and direct support across Portugal, Spain, and Malta for:"
           />
-          <div className="-mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:thin] [scrollbar-color:#D0A12B_transparent] md:mx-0 md:overflow-visible md:px-0 md:pb-0">
-            <div className="flex w-max gap-4 md:grid md:w-auto md:grid-cols-2 lg:grid-cols-3">
-              {services.map(([title, text], index) => (
-                <article
-                  key={title}
-                  className="group relative min-h-72 w-[82vw] max-w-[22rem] shrink-0 overflow-hidden rounded-3xl border border-primary/10 bg-white/80 p-7 text-left shadow-soft backdrop-blur-xl transition hover:-translate-y-1 hover:border-secondary/45 hover:bg-white md:w-auto md:max-w-none"
-                >
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary/70 to-transparent opacity-0 transition group-hover:opacity-100" />
-                  <span className="mb-8 inline-flex h-9 w-9 items-center justify-center rounded-full border border-secondary/35 bg-secondary/10 text-xs font-semibold text-primary">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="font-serif text-2xl leading-tight text-ink">{title}</h3>
-                  <p className="mt-4 leading-7 text-graphite">{text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+          <ServiceCards services={services} />
         </div>
       </ScrollReveal>
 

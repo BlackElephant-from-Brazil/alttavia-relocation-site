@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug, getPublishedPosts } from '@/lib/posts'
 import { createMetadata } from '@/lib/metadata'
+import { articleJsonLd, extractFaqItems, faqPageJsonLd } from '@/lib/structuredData'
 import { FAQ, FAQItem } from '@/components/blog/FAQ'
 import type { ComponentPropsWithoutRef } from 'react'
 
@@ -99,8 +100,20 @@ export default async function BlogPostPage({ params }: Props) {
     year: 'numeric',
   })
 
+  const faqItems = extractFaqItems(post.content)
+
   return (
     <main className="px-6 pb-24 pt-36 md:pt-44">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(post)) }}
+      />
+      {faqItems.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd(faqItems)) }}
+        />
+      )}
       <div className="mx-auto max-w-4xl">
         {/* Back link */}
         <Link

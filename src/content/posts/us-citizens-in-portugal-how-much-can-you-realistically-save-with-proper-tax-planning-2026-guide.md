@@ -216,8 +216,6 @@ Handled without structure, it becomes unnecessarily complex.
 ## If you are considering relocating
 If you are considering relocating to Portugal, tax structuring should be addressed early.
 
-Not after decisions have already been made.
+Not after decisions have already been made. Before you compare tax regimes, it also helps to confirm [Portugal is the right fit against Spain and Malta](/blog/portugal-spain-or-malta-where-to-relocate-in-2026), and to have your [Portuguese NIF and bank account](/blog/portuguese-nif-and-bank-account-for-non-residents-2026-step-by-step-guide-common-mistakes-and-how-to-do-it-properly) set up correctly, since your tax residency and banking structure are directly connected.
 
-If you want clarity on how this applies to your specific situation,
-
-we can assess your case and define a structured approach from the outset.
+If you want clarity on how this applies to your specific situation, [contact us](/en/contact) and we can assess your case and define a structured approach from the outset.
