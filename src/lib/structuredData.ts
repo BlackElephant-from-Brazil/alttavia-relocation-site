@@ -1,6 +1,6 @@
 import type { Post } from '@/lib/posts'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alttavia-relocation.com'
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://alttavia-relocation.com').replace(/\/+$/, '')
 
 export function organizationJsonLd() {
   return {

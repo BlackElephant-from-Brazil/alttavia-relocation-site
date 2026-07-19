@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getPublishedPosts } from '@/lib/posts'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alttavia-relocation.com'
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://alttavia-relocation.com').replace(/\/+$/, '')
 const locales = ['en', 'pt', 'es'] as const
 const pages = ['', '/why-us', '/relocation-services', '/blog', '/contact'] as const
 
