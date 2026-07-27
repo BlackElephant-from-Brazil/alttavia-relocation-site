@@ -50,7 +50,7 @@ function getPlaceQuery() {
 }
 
 async function fetchGoogleJson<T>(url: string): Promise<T | null> {
-  const response = await fetch(url, { cache: 'no-store' })
+  const response = await fetch(url, { next: { revalidate: 3600 } })
 
   if (!response.ok) {
     return null

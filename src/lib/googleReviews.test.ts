@@ -46,7 +46,7 @@ describe('google reviews client', () => {
 
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining('reviews_sort=newest'),
-      expect.objectContaining({ cache: 'no-store' }),
+      expect.objectContaining({ next: { revalidate: 3600 } }),
     )
     expect(result).toHaveLength(10)
     expect(result.every((review) => review.rating === 5)).toBe(true)
