@@ -7,7 +7,10 @@ import './globals.css'
 import { organizationJsonLd } from '@/lib/structuredData'
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION
+const googleSiteVerificationCodes = (process.env.GOOGLE_SITE_VERIFICATION ?? '')
+  .split(',')
+  .map((code) => code.trim())
+  .filter(Boolean)
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
@@ -26,7 +29,9 @@ export const metadata: Metadata = {
     template: '%s | Alttavia Relocation',
   },
   description: 'Premium relocation services for international families and professionals.',
-  ...(googleSiteVerification && { verification: { google: googleSiteVerification } }),
+  ...(googleSiteVerificationCodes.length > 0 && {
+    verification: { google: googleSiteVerificationCodes },
+  }),
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
