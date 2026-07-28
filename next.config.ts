@@ -7,6 +7,9 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: path.resolve(dirname),
+  async rewrites() {
+    return [{ source: '/favicon.ico', destination: '/icon.svg' }]
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
