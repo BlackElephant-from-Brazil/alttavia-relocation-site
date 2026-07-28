@@ -23,6 +23,18 @@ function getString(formData: FormData, key: string): string {
   return typeof value === 'string' ? value.trim() : ''
 }
 
+const MIN_FILL_TIME_MS = 2000
+
+export function isLikelySpam(formData: FormData): boolean {
+  const honeypot = getString(formData, 'company')
+  if (honeypot) return true
+
+  const renderedAt = Number(getString(formData, 'renderedAt'))
+  if (!renderedAt || Date.now() - renderedAt < MIN_FILL_TIME_MS) return true
+
+  return false
+}
+
 export function parseContactForm(formData: FormData): ContactParseResult {
   const data = {
     name: getString(formData, 'name'),

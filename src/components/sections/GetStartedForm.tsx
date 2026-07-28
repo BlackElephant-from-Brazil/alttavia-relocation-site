@@ -22,6 +22,7 @@ export function GetStartedForm({
   className?: string
 }) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [renderedAt] = useState(() => Date.now())
   const nameId = `${idPrefix}-name`
   const emailId = `${idPrefix}-email`
   const messageId = `${idPrefix}-message`
@@ -53,6 +54,17 @@ export function GetStartedForm({
       className={`mt-10 max-w-2xl rounded-2xl p-6 text-white sm:p-7 ${shellClass} ${className}`.trim()}
     >
       <input type="hidden" name="language" value={locale} />
+      <input type="hidden" name="renderedAt" value={renderedAt} />
+      <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor={`${idPrefix}-company`}>Company</label>
+        <input
+          id={`${idPrefix}-company`}
+          name="company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
 
       <div className="grid gap-x-5 gap-y-5 sm:grid-cols-2">
         <div>

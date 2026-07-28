@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server'
 
-import { parseContactForm } from '@/lib/contact'
+import { isLikelySpam, parseContactForm } from '@/lib/contact'
 
 export async function POST(request: Request) {
-  const result = parseContactForm(await request.formData())
+  const formData = await request.formData()
+
+  if (isLikelySpam(formData)) {
+    return NextResponse.json({ ok: true })
+  }
+
+  const result = parseContactForm(formData)
 
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 400 })
