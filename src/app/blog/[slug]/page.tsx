@@ -7,6 +7,8 @@ import { getPostBySlug, getPublishedPosts } from '@/lib/posts'
 import { createMetadata } from '@/lib/metadata'
 import { articleJsonLd, extractFaqItems, faqPageJsonLd } from '@/lib/structuredData'
 import { FAQ, FAQItem } from '@/components/blog/FAQ'
+import { RetirementCalculator } from '@/components/blog/RetirementCalculator'
+import { CalendlyEmbed } from '@/components/blog/CalendlyEmbed'
 import type { ComponentPropsWithoutRef } from 'react'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post || !post.published) return {}
   return createMetadata(
     post.title,
-    post.excerpt,
+    post.metaDescription,
     `/blog/${post.slug}`,
   )
 }
@@ -86,6 +88,8 @@ const mdxComponents = {
   ),
   FAQ,
   FAQItem,
+  RetirementCalculator,
+  CalendlyEmbed,
 }
 
 export default async function BlogPostPage({ params }: Props) {

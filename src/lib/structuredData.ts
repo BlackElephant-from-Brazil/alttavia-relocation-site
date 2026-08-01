@@ -24,7 +24,7 @@ export function articleJsonLd(post: Post) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    description: post.excerpt,
+    description: post.metaDescription,
     image: `${siteUrl}/alttavia-image-3.webp`,
     datePublished: post.date,
     dateModified: post.date,

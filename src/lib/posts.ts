@@ -7,6 +7,7 @@ export type Post = {
   title: string
   date: string
   excerpt: string
+  metaDescription: string
   author: string
   published: boolean
   tags: string[]
@@ -65,6 +66,12 @@ export function getPostBySlug(slug: string): Post | null {
         ? data.date
         : new Date().toISOString().split('T')[0],
     excerpt: typeof data.excerpt === 'string' ? data.excerpt : '',
+    metaDescription:
+      typeof data.metaDescription === 'string' && data.metaDescription
+        ? data.metaDescription
+        : typeof data.excerpt === 'string'
+          ? data.excerpt
+          : '',
     author: typeof data.author === 'string' ? data.author : 'Alttavia Team',
     published: typeof data.published === 'boolean' ? data.published : false,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
@@ -88,6 +95,7 @@ export function createPost(data: Omit<Post, 'slug'> & { slug?: string }): Post {
       title: post.title,
       date: post.date,
       excerpt: post.excerpt,
+      metaDescription: post.metaDescription,
       author: post.author,
       slug: post.slug,
       published: post.published,
@@ -111,6 +119,7 @@ export function updatePost(slug: string, updates: Partial<Omit<Post, 'slug'>>): 
       title: updated.title,
       date: updated.date,
       excerpt: updated.excerpt,
+      metaDescription: updated.metaDescription,
       author: updated.author,
       slug: updated.slug,
       published: updated.published,

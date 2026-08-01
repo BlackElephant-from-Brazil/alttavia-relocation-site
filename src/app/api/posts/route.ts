@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       title: body.title,
       date: body.date || new Date().toISOString().split('T')[0],
       excerpt: body.excerpt || '',
+      metaDescription: body.metaDescription || body.excerpt || '',
       author: body.author || 'Alttavia Team',
       published: body.published ?? false,
       tags: body.tags || [],

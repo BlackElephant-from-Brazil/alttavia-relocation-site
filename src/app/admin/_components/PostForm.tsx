@@ -10,6 +10,7 @@ type FormValues = {
   title: string
   slug: string
   excerpt: string
+  metaDescription: string
   author: string
   date: string
   tags: string
@@ -93,6 +94,7 @@ export function PostForm({ initialValues, mode, slug }: Props) {
     title: initialValues?.title ?? '',
     slug: initialValues?.slug ?? '',
     excerpt: initialValues?.excerpt ?? '',
+    metaDescription: initialValues?.metaDescription ?? '',
     author: initialValues?.author ?? 'Alttavia Team',
     date: initialValues?.date ?? new Date().toISOString().split('T')[0],
     tags: (initialValues?.tags ?? []).join(', '),
@@ -320,7 +322,21 @@ export function PostForm({ initialValues, mode, slug }: Props) {
               value={values.excerpt}
               onChange={(e) => set('excerpt', e.target.value)}
               rows={2}
-              placeholder="A short summary of the post that appears in listings and SEO..."
+              placeholder="A short summary shown under the title and in blog listings..."
+              className={`${inputClass} resize-none`}
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <label htmlFor="metaDescription" className={labelClass}>
+              Meta Description
+            </label>
+            <textarea
+              id="metaDescription"
+              value={values.metaDescription}
+              onChange={(e) => set('metaDescription', e.target.value)}
+              rows={2}
+              placeholder="What appears in Google search results. Leave blank to reuse the excerpt..."
               className={`${inputClass} resize-none`}
             />
           </div>
