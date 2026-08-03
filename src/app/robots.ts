@@ -8,7 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/'],
+        // No trailing slash: robots.txt matches on prefix, so "/admin" also covers
+        // the bare "/admin" URL, which "/admin/" would miss.
+        disallow: ['/admin', '/api'],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
